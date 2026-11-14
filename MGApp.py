@@ -1818,6 +1818,11 @@ class App:
     def toggle_connection(self):
         if self.connected:
             if self.serial_conn:
+                try:
+                    self.serial_conn.write("<0,0|0,0|0,0>\n".encode())
+                    time.sleep(0.05)
+                except Exception:
+                    pass
                 self.serial_conn.close()
             self.serial_conn = None
             self.connected   = False
